@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>House of Danar Hadi - Heritage Venue</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary-color: #BF092F;
+            --primary-dark: #900522;
+            --text-color: #333;
+            --light-bg: #f8f9fa;
+        }
+
+        body {
+            font-family: 'Lato', sans-serif;
+            color: var(--text-color);
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5, h6, .navbar-brand {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* Utilities */
+        .text-primary-custom { color: var(--primary-color); }
+        .bg-primary-custom { background-color: var(--primary-color); }
+        .btn-primary-custom {
+            background-color: var(--primary-color);
+            color: white;
+            border: 1px solid var(--primary-color);
+            transition: all 0.3s ease;
+        }
+        .btn-primary-custom:hover {
+            background-color: var(--primary-dark);
+            border-color: var(--primary-dark);
+            color: white;
+        }
+        .btn-outline-custom {
+            color: var(--primary-color);
+            border: 1px solid var(--primary-color);
+        }
+        .btn-outline-custom:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        /* Navbar */
+        .navbar {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            padding: 1rem 0;
+        }
+        .navbar-brand img {
+            height: 50px; /* Sesuaikan ukuran logo */
+        }
+        .nav-link {
+            color: #555;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            margin-left: 1rem;
+        }
+        .nav-link:hover, .nav-link.active {
+            color: var(--primary-color);
+        }
+
+        /* Hero Section */
+        #hero {
+            height: 90vh;
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6)), url('asset/HDH.jpg');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+        }
+        #hero h1 { font-size: 3.5rem; margin-bottom: 1rem; }
+        
+        /* Section Styling */
+        section { padding: 5rem 0; }
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+        .section-title::after {
+            content: '';
+            width: 60px;
+            height: 3px;
+            background-color: var(--primary-color);
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        /* Venue Card */
+        .venue-card {
+            border: none;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+            overflow: hidden;
+        }
+        .venue-card:hover { transform: translateY(-5px); }
+        .venue-img-wrapper {
+            height: 250px;
+            overflow: hidden;
+        }
+        .venue-img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        .venue-card:hover .venue-img-wrapper img { transform: scale(1.1); }
+        
+        /* Footer */
+        footer {
+            background-color: #1a1a1a;
+            color: #ddd;
+            padding: 4rem 0 1rem;
+        }
+        footer a { color: #ddd; text-decoration: none; }
+        footer a:hover { color: var(--primary-color); }
+
+        /* SPA logic classes */
+        .page-section { display: none; animation: fadeIn 0.5s; }
+        .page-section.active { display: block; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Venue Detail Specifics */
+        .facility-list li { margin-bottom: 0.5rem; }
+        .price-tag {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            font-weight: bold;
+            font-family: 'Playfair Display', serif;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#" onclick="navTo('home')">
+                <img src="asset/logo.png" alt="Danar Hadi Logo" onerror="this.src='https://via.placeholder.com/150x50?text=Danar+Hadi'">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link active" href="#" onclick="navTo('home')">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#" onclick="navTo('venues')">Daftar Venue</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#" onclick="navTo('packages')">Harga & Paket</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#" onclick="navTo('gallery')">Galeri</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#" onclick="navTo('contact')">Kontak</a></li>
+                </ul>
+                <a href="#" class="btn btn-primary-custom ms-3" onclick="navTo('contact')">Book Now</a>
+            </div>
+        </div>
+    </nav>
+
+    <div id="home" class="page-section active">
+        <header id="hero">
+            <div class="container">
+                <h1 class="display-3">House of Danar Hadi</h1>
+                <p class="lead mb-4">Keanggunan Budaya untuk Momen Istimewa Anda</p>
+                <button class="btn btn-primary-custom btn-lg px-5" onclick="navTo('venues')">Lihat Venue</button>
+            </div>
+        </header>
+
+        <section class="bg-light">
+            <div class="container">
+                <div class="row text-center g-4">
+                    <div class="col-md-4">
+                        <i class="fas fa-map-marker-alt fa-3x text-primary-custom mb-3"></i>
+                        <h4>Lokasi Strategis</h4>
+                        <p>Terletak di jantung kota Solo, mudah diakses oleh tamu undangan Anda.</p>
+                    </div>
+                    <div class="col-md-4">
+                        <i class="fas fa-landmark fa-3x text-primary-custom mb-3"></i>
+                        <h4>Heritage Unik</h4>
+                        <p>Arsitektur klasik Jawa-Eropa yang memberikan nuansa elegan dan tak terlupakan.</p>
+                    </div>
+                    <div class="col-md-4">
+                        <i class="fas fa-users fa-3x text-primary-custom mb-3"></i>
+                        <h4>Kapasitas Fleksibel</h4>
+                        <p>Tersedia venue untuk intimate wedding hingga konser berskala besar.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="container">
+                <h2 class="section-title">Venue Unggulan</h2>
+                <div class="row" id="featured-venues-container">
+                    </div>
+                <div class="text-center mt-4">
+                    <a href="#" class="btn btn-outline-custom" onclick="navTo('venues')">Lihat Semua Venue</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="bg-light">
+            <div class="container">
+                <h2 class="section-title">Apa Kata Mereka</h2>
+                <div id="testimonialCarousel" class="carousel slide text-center" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <p class="fs-5 fst-italic">"Venue yang sangat magis! Pernikahan kami terasa seperti di cerita dongeng kerajaan Jawa."</p>
+                            <h5 class="mt-3">— Citra & Rizky <span class="text-warning">★★★★★</span></h5>
+                        </div>
+                        <div class="carousel-item">
+                            <p class="fs-5 fst-italic">"Fasilitas lengkap dan pelayanan sangat profesional. Sasono Mangunsuko sangat luas."</p>
+                            <h5 class="mt-3">— PT. Maju Bersama (Corporate Event) <span class="text-warning">★★★★★</span></h5>
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon bg-dark rounded-circle" aria-hidden="true"></span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="next">
+                        <span class="carousel-control-next-icon bg-dark rounded-circle" aria-hidden="true"></span>
+                    </button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div id="venues" class="page-section">
+        <div style="height: 80px; background-color: #333;"></div> <div class="container py-5">
+            <h2 class="section-title">Daftar Venue</h2>
+            
+            <div class="row mb-4 p-4 bg-light rounded">
+                <div class="col-md-4 mb-2">
+                    <label>Tipe Acara</label>
+                    <select class="form-select" id="filter-type" onchange="filterVenues()">
+                        <option value="all">Semua</option>
+                        <option value="wedding">Pernikahan</option>
+                        <option value="meeting">Meeting/Corporate</option>
+                        <option value="concert">Konser/Event</option>
+                    </select>
+                </div>
+                <div class="col-md-4 mb-2">
+                    <label>Urutkan Harga</label>
+                    <select class="form-select" id="sort-price" onchange="filterVenues()">
+                        <option value="default">Rekomendasi</option>
+                        <option value="low">Terendah ke Tertinggi</option>
+                        <option value="high">Tertinggi ke Terendah</option>
+                    </select>
+                </div>
+                <div class="col-md-4 mb-2 d-flex align-items-end">
+                    <button class="btn btn-primary-custom w-100" onclick="filterVenues()">Terapkan Filter</button>
+                </div>
+            </div>
+
+            <div class="row g-4" id="venue-list-container">
+                </div>
+        </div>
+    </div>
+
+    <div id="venue-detail" class="page-section">
+        <div style="height: 80px; background-color: #333;"></div>
+        <div class="container py-5" id="venue-detail-content">
+            </div>
+    </div>
+
+    <div id="packages" class="page-section">
+        <div style="height: 80px; background-color: #333;"></div>
+        <div class="container py-5">
+            <h2 class="section-title">Harga & Paket</h2>
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover shadow-sm">
+                    <thead class="bg-primary-custom text-white">
+                        <tr>
+                            <th>Jenis Paket</th>
+                            <th>Durasi</th>
+                            <th>Harga Mulai</th>
+                            <th>Termasuk</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Half Day</strong></td>
+                            <td>4 - 6 Jam</td>
+                            <td>Rp 15.000.000</td>
+                            <td>Venue, AC/Fan, Standard Sound, Cleaning</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Full Day</strong></td>
+                            <td>12 Jam</td>
+                            <td>Rp 25.000.000</td>
+                            <td>Venue, AC/Fan, Full Sound, 2 Transit Room</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Royal Wedding</strong></td>
+                            <td>Full Day + Evening</td>
+                            <td>Rp 45.000.000</td>
+                            <td>All Access, VIP Room, Lighting, Valet Parking</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="row mt-5">
+                <div class="col-md-6">
+                    <h4>Add-ons Tambahan</h4>
+                    <ul class="list-group">
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Sound System 5000 Watt
+                            <span class="badge bg-secondary rounded-pill">Rp 3.000.000</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Lighting Dekorasi
+                            <span class="badge bg-secondary rounded-pill">Rp 5.000.000</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Genset 100 KVA
+                            <span class="badge bg-secondary rounded-pill">Rp 2.500.000</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <div class="alert alert-info">
+                        <h5><i class="fas fa-info-circle"></i> Catatan</h5>
+                        <ul class="mb-0">
+                            <li>Harga belum termasuk PPN 11%.</li>
+                            <li>Deposit 30% diperlukan untuk mengunci tanggal.</li>
+                            <li>Pembatalan H-30 dikenakan biaya 50% dari deposit.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="gallery" class="page-section">
+        <div style="height: 80px; background-color: #333;"></div>
+        <div class="container py-5">
+            <h2 class="section-title">Galeri Momen</h2>
+            <div class="row g-2">
+                <div class="col-md-4 col-6"><img src="asset/wuryo.jpg" class="img-fluid rounded shadow-sm" alt="Gallery 1" onerror="this.src='https://via.placeholder.com/400x300'"></div>
+                <div class="col-md-4 col-6"><img src="asset/sms.jpg" class="img-fluid rounded shadow-sm" alt="Gallery 2" onerror="this.src='https://via.placeholder.com/400x300'"></div>
+                <div class="col-md-4 col-12"><img src="asset/vip.jpg" class="img-fluid rounded shadow-sm" alt="Gallery 3" onerror="this.src='https://via.placeholder.com/400x300'"></div>
+                <div class="col-md-6 col-12"><img src="asset/HDH.jpg" class="img-fluid rounded shadow-sm" alt="Gallery 4" onerror="this.src='https://via.placeholder.com/600x400'"></div>
+                <div class="col-md-6 col-12"><img src="asset/wuryo.jpg" class="img-fluid rounded shadow-sm" alt="Gallery 5" onerror="this.src='https://via.placeholder.com/600x400'"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="contact" class="page-section">
+        <div style="height: 80px; background-color: #333;"></div>
+        <div class="container py-5">
+            <div class="row">
+                <div class="col-md-6">
+                    <h2 class="mb-4">Hubungi Kami</h2>
+                    <form id="contactForm" onsubmit="handleContact(event)">
+                        <div class="mb-3">
+                            <label class="form-label">Nama Lengkap</label>
+                            <input type="text" class="form-control" id="contactName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Email</label>
+                            <input type="email" class="form-control" id="contactEmail" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Venue Diminati</label>
+                            <select class="form-select" id="contactVenue">
+                                <option value="General">Tanya Umum</option>
+                                <option value="nDalem Wuryoningratan">nDalem Wuryoningratan</option>
+                                <option value="Sasono Mangunsuko">Sasono Mangunsuko</option>
+                                <option value="VIP nDalem Ageng">VIP nDalem Ageng</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Pesan / Pertanyaan</label>
+                            <textarea class="form-control" rows="4" id="contactMessage" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary-custom w-100">Kirim Pesan</button>
+                    </form>
+                </div>
+                <div class="col-md-6">
+                    <h2 class="mb-4">Lokasi & Info</h2>
+                    <div class="ratio ratio-16x9 mb-4 shadow-sm">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3955.149174549929!2d110.8252!3d-7.5695!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7a168677764d11%3A0x6c6b6b6b6b6b6b6b!2sHouse%20of%20Danar%20Hadi!5e0!3m2!1sen!2sid!4v1600000000000" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                    </div>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="fas fa-map-marker-alt text-primary-custom me-2"></i> Jl. Slamet Riyadi No. 261, Solo</li>
+                        <li class="mb-2"><i class="fas fa-phone text-primary-custom me-2"></i> +62 271 1234567</li>
+                        <li class="mb-2"><i class="fab fa-whatsapp text-primary-custom me-2"></i> +62 812 3456 7890</li>
+                        <li class="mb-2"><i class="fas fa-clock text-primary-custom me-2"></i> 09.00 - 17.00 WIB</li>
+                    </ul>
+
+                    <h4 class="mt-5 mb-3">FAQ</h4>
+                    <div class="accordion" id="faqAccordion">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">Berapa kapasitas parkir?</button>
+                            </h2>
+                            <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">Area parkir kami menampung hingga 100 mobil dan 200 motor, dengan opsi Valet.</div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">Apakah boleh membawa katering luar?</button>
+                            </h2>
+                            <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">Kami memiliki rekanan katering eksklusif. Katering luar dikenakan charge 20%.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="bookingModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-primary-custom text-white">
+                    <h5 class="modal-title">Booking Inquiry: <span id="modalVenueName"></span></h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form onsubmit="handleBooking(event)">
+                        <input type="hidden" id="bookingVenueId">
+                        <div class="mb-3">
+                            <label>Tanggal Acara</label>
+                            <input type="date" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label>Estimasi Tamu</label>
+                            <input type="number" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label>Kontak WhatsApp</label>
+                            <input type="tel" class="form-control" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary-custom w-100">Kirim Penawaran</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <h5>House of Danar Hadi</h5>
+                    <p class="small">Melestarikan budaya melalui arsitektur dan pelayanan kelas dunia.</p>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <h5>Link Cepat</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" onclick="navTo('home')">Home</a></li>
+                        <li><a href="#" onclick="navTo('venues')">Venue</a></li>
+                        <li><a href="#" onclick="navTo('contact')">Kontak</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <h5>Newsletter</h5>
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" placeholder="Email Anda">
+                        <button class="btn btn-primary-custom">Subscribe</button>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center pt-3 border-top border-secondary">
+                <p class="small mb-0">&copy; 2023 House of Danar Hadi. All Rights Reserved.</p>
+                <button onclick="console.log('Open Admin Panel')" class="btn btn-sm btn-link text-muted" style="text-decoration: none;">Admin Login</button>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // 1. DATA VENUE
+        const venues = [
+            {
+                id: 1,
+                name: "nDalem Wuryoningratan",
+                img: "asset/gebyok.jpg",
+                capacity: 800,
+                price: 25000000,
+                type: "wedding",
+                desc: "Bangunan utama dengan arsitektur klasik Jawa yang sangat kental, cocok untuk resepsi pernikahan sakral.",
+                facilities: ["AC Central", "Ruang Rias Pengantin", "Sound System Standard", "Area Prasmanan", "Parkir VIP"],
+                featured: true
+            },
+            {
+                id: 2,
+                name: "Sasono Mangunsuko",
+                img: "asset/sms.jpg",
+                capacity: 1500,
+                price: 45000000,
+                type: "concert",
+                desc: "Hall serbaguna yang luas dan megah, ideal untuk konser, gathering perusahaan besar, atau grand wedding.",
+                facilities: ["Panggung Besar", "Lighting Rigging", "High Ceiling", "VIP Lounge", "Kapasitas Listrik Besar"],
+                featured: true
+            },
+            {
+                id: 3,
+                name: "VIP nDalem Ageng",
+                img: "asset/vip.jpg",
+                capacity: 100,
+                price: 15000000,
+                type: "meeting",
+                desc: "Ruangan eksklusif dan privat untuk pertemuan penting, lamaran, atau private dinner.",
+                facilities: ["Meja Panjang Jati", "Kursi Ukir", "Projector & Screen", "Private Toilet", "Butler Service"],
+                featured: true
+            },
+            {
+                id: 4,
+                name: "Garden Area",
+                img: "asset/HDH.jpg",
+                capacity: 400,
+                price: 18000000,
+                type: "wedding",
+                desc: "Area taman terbuka dengan latar belakang bangunan heritage yang indah.",
+                facilities: ["Outdoor Lighting", "Tenda Dekoratif", "Portable Sound", "Misting Fan"],
+                featured: false
+            }
+        ];
+
+        // 2. NAVIGASI SPA
+        function navTo(sectionId) {
+            // Sembunyikan semua section
+            document.querySelectorAll('.page-section').forEach(sec => sec.classList.remove('active'));
+            // Tampilkan section target
+            document.getElementById(sectionId).classList.add('active');
+            
+            // Scroll ke atas
+            window.scrollTo(0, 0);
+
+            // Update Nav Active State
+            document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
+            // (Simplifikasi: anggap link nav diurutkan)
+        }
+
+        // 3. RENDER FUNCTION
+        function formatRupiah(num) {
+            return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(num);
+        }
+
+        function renderVenueCard(venue) {
+            return `
+                <div class="col-md-4 col-sm-6 mb-4">
+                    <div class="card venue-card h-100">
+                        <div class="venue-img-wrapper">
+                            <img src="${venue.img}" alt="${venue.name}" onerror="this.src='https://via.placeholder.com/400x300?text=No+Image'">
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title font-serif fw-bold">${venue.name}</h5>
+                            <p class="text-muted small"><i class="fas fa-user-friends"></i> Kapasitas: ${venue.capacity} pax</p>
+                            <p class="text-primary fw-bold">${formatRupiah(venue.price)} <small class="text-muted fw-normal">/ hari</small></p>
+                            <button onclick="showVenueDetail(${venue.id})" class="btn btn-outline-custom w-100 mt-2">Lihat Detail</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function initVenues() {
+            const featuredContainer = document.getElementById('featured-venues-container');
+            const listContainer = document.getElementById('venue-list-container');
+            
+            featuredContainer.innerHTML = '';
+            listContainer.innerHTML = '';
+
+            venues.forEach(venue => {
+                const card = renderVenueCard(venue);
+                listContainer.innerHTML += card;
+                if(venue.featured) {
+                    featuredContainer.innerHTML += card;
+                }
+            });
+        }
+
+        // 4. FILTER FUNCTION
+        function filterVenues() {
+            const type = document.getElementById('filter-type').value;
+            const sort = document.getElementById('sort-price').value;
+            const container = document.getElementById('venue-list-container');
+
+            let filtered = venues.filter(v => type === 'all' || v.type === type);
+
+            if (sort === 'low') {
+                filtered.sort((a, b) => a.price - b.price);
+            } else if (sort === 'high') {
+                filtered.sort((a, b) => b.price - a.price);
+            }
+
+            container.innerHTML = '';
+            if (filtered.length === 0) {
+                container.innerHTML = '<div class="col-12 text-center py-5"><h5>Tidak ada venue yang cocok.</h5></div>';
+            } else {
+                filtered.forEach(v => container.innerHTML += renderVenueCard(v));
+            }
+        }
+
+        // 5. DETAIL PAGE LOGIC
+        function showVenueDetail(id) {
+            const venue = venues.find(v => v.id === id);
+            if (!venue) return;
+
+            const detailHTML = `
+                <div class="row">
+                    <div class="col-lg-8">
+                        <img src="${venue.img}" class="img-fluid rounded shadow mb-4 w-100" alt="${venue.name}" onerror="this.src='https://via.placeholder.com/800x500'">
+                        
+                        <h2 class="mb-3">${venue.name}</h2>
+                        <p class="lead">${venue.desc}</p>
+                        
+                        <h4 class="mt-4 mb-3">Fasilitas Venue</h4>
+                        <ul class="facility-list row list-unstyled">
+                            ${venue.facilities.map(f => `<li class="col-md-6"><i class="fas fa-check-circle text-primary-custom me-2"></i>${f}</li>`).join('')}
+                        </ul>
+
+                        <h4 class="mt-4 mb-3">Denah Lokasi</h4>
+                        <div class="bg-light p-5 text-center border rounded">
+                            <i class="far fa-map fa-3x text-muted"></i>
+                            <p class="mt-2 text-muted">Gambar Floorplan ${venue.name} akan ditampilkan di sini.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-4">
+                        <div class="card shadow-sm border-0 sticky-top" style="top: 100px;">
+                            <div class="card-body p-4">
+                                <h5 class="text-muted">Mulai Dari</h5>
+                                <div class="price-tag mb-3">${formatRupiah(venue.price)}</div>
+                                <hr>
+                                <ul class="list-unstyled mb-4">
+                                    <li class="mb-2"><i class="fas fa-user me-2"></i> Max ${venue.capacity} Orang</li>
+                                    <li class="mb-2"><i class="fas fa-clock me-2"></i> Pemakaian 12 Jam</li>
+                                    <li class="mb-2"><i class="fas fa-map-marker-alt me-2"></i> Heritage Zone</li>
+                                </ul>
+                                
+                                <button class="btn btn-primary-custom w-100 mb-2" onclick="openBookingModal('${venue.name}', ${venue.id})">
+                                    Minta Penawaran
+                                </button>
+                                <a href="https://wa.me/6281234567890?text=Halo admin, saya tertarik dengan ${venue.name}" target="_blank" class="btn btn-outline-success w-100">
+                                    <i class="fab fa-whatsapp"></i> Chat WhatsApp
+                                </a>
+
+                                <div class="mt-4">
+                                    <h6>Cek Ketersediaan (Dummy)</h6>
+                                    <input type="date" class="form-control" id="checkDate">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('venue-detail-content').innerHTML = detailHTML;
+            navTo('venue-detail');
+        }
+
+        // 6. FORM HANDLERS & LOCALSTORAGE
+        function handleContact(e) {
+            e.preventDefault();
+            const name = document.getElementById('contactName').value;
+            alert(`Terima kasih ${name}, pesan Anda telah terkirim! Admin kami akan menghubungi via Email/WA.`);
+            e.target.reset();
+        }
+
+        function openBookingModal(venueName, venueId) {
+            document.getElementById('modalVenueName').innerText = venueName;
+            document.getElementById('bookingVenueId').value = venueId;
+            const modal = new bootstrap.Modal(document.getElementById('bookingModal'));
+            modal.show();
+        }
+
+        function handleBooking(e) {
+            e.preventDefault();
+            const venueId = document.getElementById('bookingVenueId').value;
+            const venueName = document.getElementById('modalVenueName').innerText;
+            
+            // Simpan ke LocalStorage (Simulasi Database)
+            const bookingData = {
+                venue: venueName,
+                date: new Date().toISOString(),
+                status: 'Inquiry Sent'
+            };
+
+            let allBookings = JSON.parse(localStorage.getItem('hdh_bookings')) || [];
+            allBookings.push(bookingData);
+            localStorage.setItem('hdh_bookings', JSON.stringify(allBookings));
+
+            alert("Permintaan penawaran terkirim! Tim sales kami akan menghubungi nomor WhatsApp Anda.");
+            
+            // Tutup modal
+            const modalEl = document.getElementById('bookingModal');
+            const modalInstance = bootstrap.Modal.getInstance(modalEl);
+            modalInstance.hide();
+            e.target.reset();
+        }
+
+        // INIT
+        document.addEventListener('DOMContentLoaded', () => {
+            initVenues();
+        });
+
+    </script>
+</body>
+</html>
